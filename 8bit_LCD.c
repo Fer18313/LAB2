@@ -48,7 +48,7 @@ void LCD_set(char x){
     __delay_ms(80);
     EN = 0;
 }
-void LCDcursor(char x, char y){
+void LCD_cursor(char x, char y){
     char a,b,c;
     if (x == 1){
         a = 0x80 + y - 1;

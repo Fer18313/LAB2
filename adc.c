@@ -13,7 +13,7 @@
 
 
 void ADC_START() {
-    ADCON1bits.ADFM = 0; 
+        ADCON1bits.ADFM = 0; 
         ADCON1bits.VCFG0 = 0; 
         ADCON1bits.VCFG1 = 0; 
         ADCON0bits.ADCS = 0b10; 

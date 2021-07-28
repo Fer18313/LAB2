@@ -1,42 +1,23 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"2983 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 2983:     struct {
-[s S116 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S116 . . VCFG0 VCFG1 . ADFM ]
-"2982
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 2982: typedef union {
-[u S115 `S116 1 ]
-[n S115 . . ]
-"2991
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 2991: extern volatile ADCON1bits_t ADCON1bits __attribute__((address(0x09F)));
-[v _ADCON1bits `VS115 ~T0 @X0 0 e@159 ]
-"1251
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1251:     struct {
-[s S45 :1 `uc 1 :1 `uc 1 :4 `uc 1 :2 `uc 1 ]
-[n S45 . ADON GO_nDONE CHS ADCS ]
-"1257
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1257:     struct {
-[s S46 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S46 . . GO CHS0 CHS1 CHS2 CHS3 ADCS0 ADCS1 ]
-"1267
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1267:     struct {
-[s S47 :1 `uc 1 :1 `uc 1 ]
-[n S47 . . nDONE ]
-"1271
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1271:     struct {
-[s S48 :1 `uc 1 :1 `uc 1 ]
-[n S48 . . GO_DONE ]
-"1250
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1250: typedef union {
-[u S44 `S45 1 `S46 1 `S47 1 `S48 1 ]
-[n S44 . . . . . ]
-"1276
-[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 1276: extern volatile ADCON0bits_t ADCON0bits __attribute__((address(0x01F)));
-[v _ADCON0bits `VS44 ~T0 @X0 0 e@31 ]
 [v F1256 `(v ~T0 @X0 1 tf1`ul ]
 "92 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\pic.h
 [v __delay `JF1256 ~T0 @X0 0 e ]
 [p i __delay ]
+"15 ./8bit_LCD.h
+[; ;./8bit_LCD.h: 15: void LCDsetup(char x);
+[v _LCDsetup `(v ~T0 @X0 0 ef1`uc ]
+"12
+[; ;./8bit_LCD.h: 12: void wLCD(char x);
+[v _wLCD `(v ~T0 @X0 0 ef1`uc ]
+"4205 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 4205: extern volatile __bit RE0 __attribute__((address(0x48)));
+[v _RE0 `Vb ~T0 @X0 0 e@72 ]
+"4208
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 4208: extern volatile __bit RE1 __attribute__((address(0x49)));
+[v _RE1 `Vb ~T0 @X0 0 e@73 ]
+"352
+[; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 352: extern volatile unsigned char PORTD __attribute__((address(0x008)));
+[v _PORTD `Vuc ~T0 @X0 0 e@8 ]
 "54 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -271,40 +252,143 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3546
 [; ;C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 3546: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
-"15 adc.c
-[; ;adc.c: 15: void ADC_START() {
-[v _ADC_START `(v ~T0 @X0 1 ef ]
+"16 8bit_LCD.c
+[v _initLCD `(v ~T0 @X0 1 ef ]
 {
-[e :U _ADC_START ]
+[e :U _initLCD ]
 [f ]
-"16
-[; ;adc.c: 16:         ADCON1bits.ADFM = 0;
-[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
 "17
-[; ;adc.c: 17:         ADCON1bits.VCFG0 = 0;
-[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "18
-[; ;adc.c: 18:         ADCON1bits.VCFG1 = 0;
-[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
+[e ( _LCDsetup (1 -> -> 0 `i `uc ]
 "19
-[; ;adc.c: 19:         ADCON0bits.ADCS = 0b10;
-[e = . . _ADCON0bits 0 3 -> -> 2 `i `uc ]
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "20
-[; ;adc.c: 20:         ADCON0bits.CHS = 0;
-[e = . . _ADCON0bits 0 2 -> -> 0 `i `uc ]
+[e ( _LCDsetup (1 -> -> 48 `i `uc ]
 "21
-[; ;adc.c: 21:         ADCON0bits.ADON = 1;
-[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "22
-[; ;adc.c: 22:         _delay((unsigned long)((50)*(4000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[e ( _LCDsetup (1 -> -> 48 `i `uc ]
 "23
-[; ;adc.c: 23:         ADCON0bits.GO = 1;
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
 "24
-[; ;adc.c: 24:     return;
-[e $UE 138  ]
+[e ( _LCDsetup (1 -> -> 48 `i `uc ]
 "25
-[; ;adc.c: 25: }
+[e ( _LCDsetup (1 -> -> 16 `i `uc ]
+"26
+[e ( _LCDsetup (1 -> -> 1 `i `uc ]
+"27
+[e ( _LCDsetup (1 -> -> 6 `i `uc ]
+"28
+[e ( _LCDsetup (1 -> -> 12 `i `uc ]
+"29
 [e :UE 138 ]
+}
+"32
+[v _wsLCD `(v ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _wsLCD ]
+[v _x `*uc ~T0 @X0 1 r1 ]
+[f ]
+"33
+[v _i `i ~T0 @X0 1 a ]
+"34
+{
+[e = _i -> 0 `i ]
+[e $U 143  ]
+[e :U 140 ]
+"35
+[e ( _wLCD (1 *U + _x * -> _i `x -> -> # *U _x `i `x ]
+[e ++ _i -> 1 `i ]
+[e :U 143 ]
+[e $ != -> *U + _x * -> _i `x -> -> # *U _x `i `x `ui -> 0 `ui 140  ]
+[e :U 141 ]
+}
+"36
+[e :UE 139 ]
+}
+"37
+[v _wLCD `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _wLCD ]
+[v _x `uc ~T0 @X0 1 r1 ]
+[f ]
+"38
+[e = _RE0 -> -> 1 `i `b ]
+"39
+[e ( _LCDsetup (1 _x ]
+"40
+[e = _RE1 -> -> 1 `i `b ]
+"41
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+"42
+[e = _RE1 -> -> 0 `i `b ]
+"43
+[e :UE 144 ]
+}
+"44
+[v _LCD_set `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _LCD_set ]
+[v _x `uc ~T0 @X0 1 r1 ]
+[f ]
+"45
+[e = _RE0 -> -> 0 `i `b ]
+"46
+[e ( _LCDsetup (1 _x ]
+"47
+[e = _RE1 -> -> 1 `i `b ]
+"48
+[e ( __delay (1 -> * -> -> 80 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"49
+[e = _RE1 -> -> 0 `i `b ]
+"50
+[e :UE 145 ]
+}
+"51
+[v _LCD_cursor `(v ~T0 @X0 1 ef2`uc`uc ]
+{
+[e :U _LCD_cursor ]
+[v _x `uc ~T0 @X0 1 r1 ]
+[v _y `uc ~T0 @X0 1 r2 ]
+[f ]
+"52
+[v _a `uc ~T0 @X0 1 a ]
+[v _b `uc ~T0 @X0 1 a ]
+[v _c `uc ~T0 @X0 1 a ]
+"53
+[e $ ! == -> _x `i -> 1 `i 147  ]
+{
+"54
+[e = _a -> - + -> 128 `i -> _y `i -> 1 `i `uc ]
+"55
+[e ( _LCD_set (1 _a ]
+"56
+}
+[e $U 148  ]
+"57
+[e :U 147 ]
+[e $ ! == -> _x `i -> 2 `i 149  ]
+{
+"58
+[e = _a -> - + -> 192 `i -> _y `i -> 1 `i `uc ]
+"59
+[e ( _LCD_set (1 _a ]
+"60
+}
+[e :U 149 ]
+[e :U 148 ]
+"61
+[e :UE 146 ]
+}
+"62
+[v _LCDsetup `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _LCDsetup ]
+[v _x `uc ~T0 @X0 1 r1 ]
+[f ]
+"63
+[e = _PORTD -> _x `uc ]
+"64
+[e :UE 150 ]
 }

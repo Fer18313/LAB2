@@ -1,4 +1,4 @@
-# 1 "newmain.c"
+# 1 "8bit_LCD.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,29 +6,11 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "newmain.c" 2
+# 1 "8bit_LCD.c" 2
 
 
 
 
-
-
-
-
-#pragma config FOSC = INTRC_NOCLKOUT
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config MCLRE = OFF
-#pragma config CP = OFF
-#pragma config CPD = OFF
-#pragma config BOREN = OFF
-#pragma config IESO = OFF
-#pragma config FCMEN = OFF
-#pragma config LVP = OFF
-
-
-#pragma config BOR4V = BOR40V
-#pragma config WRT = OFF
 
 
 
@@ -2513,7 +2495,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 26 "newmain.c" 2
+# 9 "8bit_LCD.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
@@ -2648,19 +2630,7 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 27 "newmain.c" 2
-
-# 1 "./adc.h" 1
-
-
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
-# 5 "./adc.h" 2
-
-
-void ADC_START(void);
-# 28 "newmain.c" 2
+# 10 "8bit_LCD.c" 2
 
 
 # 1 "./8bit_LCD.h" 1
@@ -2681,223 +2651,57 @@ void wLCD(char x);
 void LCD_set(char x);
 void LCD_cursor(char x, char y);
 void LCDsetup(char x);
-# 30 "newmain.c" 2
+# 12 "8bit_LCD.c" 2
 
 
 
-uint8_t ADC_read0 = 0;
-uint8_t ADC_read1 = 0;
-uint8_t temp = 0;
-uint8_t counter = 0;
 
-uint8_t unit0;
-uint8_t unit1;
-uint8_t dec0;
-uint8_t dec1;
-uint8_t k0;
-uint8_t k1;
-uint8_t cents;
-uint8_t temp1 = 0;
-uint8_t dozen = 0;
-uint8_t unity = 0;
-uint8_t F = 0;
-uint8_t f = 0;
+void initLCD(){
+    _delay((unsigned long)((50)*(4000000/4000.0)));
+    LCDsetup(0x00);
+    _delay((unsigned long)((50)*(4000000/4000.0)));
+    LCDsetup(0x030);
+    _delay((unsigned long)((50)*(4000000/4000.0)));
+    LCDsetup(0x030);
+    _delay((unsigned long)((200)*(4000000/4000.0)));
+    LCDsetup(0x030);
+    LCDsetup(0x010);
+    LCDsetup(0x001);
+    LCDsetup(0x006);
+    LCDsetup(0x0C);
+}
 
 
-void initCONFIG(void);
-void LCDconfig(void);
-
-
-void main(void) {
-    initCONFIG();
-    while (1){
-        unit0 = ADC_read0/51;
-        dec0 = ((ADC_read0*100/51)-(unit0*100));
-        dec1 = ((ADC_read0*100/51)-(unit0*100) - (dec0*10));
-        unit1 = ADC_read1/51;
-        k0 = (((ADC_read1*100)/51) -(unit1*100))/10;
-        k1 = (((ADC_read1*100)/51) - (unit1*100) - (k0*10));
-        cents = counter/100;
-        temp1 = counter%100;
-        dozen = temp1/10;
-        unity = counter%10;
-
-        if (dec0>9){
-            dec0 = 9;
-        }
-        if (dec1>9){
-            dec1 = 9;
-        }
-        if (k0>9){
-            k0 = 9;
-        }
-        if (k1>9){
-            k1 = 9;
-        }
-        if (unit0>5){
-            unit0=5;
-        }
-        if (unit1>5){
-            unit0 = 5;
-        }
-        if (counter>5){
-            unit0 =5;
-        }
-        LCD_cursor(2,1);
-        wLCD(unit0 + 48);
-        LCD_cursor(2,3);
-        wLCD(dec0 + 48);
-        LCD_cursor(2,4);
-        wLCD(dec1 +48);
-
-        LCD_cursor (2,7);
-        wLCD(unit1 +48);
-        LCD_cursor (2,9);
-        wLCD(k0+48);
-        LCD_cursor(2,10);
-        wLCD(k1+48);
-
-        LCD_cursor(2,13);
-        wLCD(cents +48);
-        LCD_cursor(2,14);
-        wLCD(dozen +48);
-        LCD_cursor(2,15);
-        wLCD(unity +48);
+void wsLCD(char *x){
+    int i;
+    for (i=0 ; x[i]!='\0' ; i++)
+        wLCD(x[i]);
+}
+void wLCD(char x){
+    RE0 = 1;
+    LCDsetup(x);
+    RE1 = 1;
+    _delay((unsigned long)((100)*(4000000/4000000.0)));
+    RE1 = 0;
+}
+void LCD_set(char x){
+    RE0 = 0;
+    LCDsetup(x);
+    RE1 = 1;
+    _delay((unsigned long)((80)*(4000000/4000.0)));
+    RE1 = 0;
+}
+void LCD_cursor(char x, char y){
+    char a,b,c;
+    if (x == 1){
+        a = 0x80 + y - 1;
+        LCD_set(a);
+    }
+    else if(x==2){
+        a = 0xC0 + y - 1;
+        LCD_set(a);
     }
 }
-void __attribute__((picinterrupt(("")))) ISR(void){
-        if(PIR1bits.ADIF){
-            if (F ==1){
-            ADC_read0 = ADRESH;
-            ADCON0bits.CHS0 = 1;
-            F = 0;
-        }else{
-            ADC_read1 = ADRESH;
-            ADCON0bits.CHS0 = 0;
-            F = 1;
-
-}
-        ADIF = 0;
-        _delay((unsigned long)((80)*(4000000/4000000.0)));
-        ADCON0bits.GO = 1;
-}
-        if(PIR1bits.RCIF ==1){
-            RB5 = 1;
-         if (RCREG==0X0D) {
-            RB5 = 0;
-            if (temp =0x2B){
-                counter++;
-                if(counter >255){
-                    counter=0;
-                }
-            }
-            else if(temp==0x2D){
-                counter--;
-                if (counter>255){
-                    counter =0;
-                }
-            }
-        }
-         else{
-             temp = RCREG;
-         }
-}
-        if (TXIF ==1){
-            if(f == 0){
-                TXREG = unit0 +48;
-                f = 1;
-            }else if (f ==1){
-                TXREG = 0x2E;
-                f = 2;
-            } else if (f ==2){
-                TXREG = dec0 +48;
-                f = 3;
-            } else if (f == 3){
-                TXREG = dec1 +48;
-                f = 4;
-            } else if (f==4){
-                TXREG = 0x2D;
-                f = 5;
-            } else if(f ==5){
-                TXREG = unit1 +48;
-                f = 6;
-            } else if(f==6){
-                TXREG = 0x2E ;
-                f = 7;
-            } else if (f==7){
-                TXREG = k0+48;
-                f = 8;
-            } else if (f==8){
-                TXREG = k1 +48;
-                f = 9;
-            } else if (f==9){
-                TXREG = 0x0D;
-                f = 0;
-            }
-            TXIF =0;
-        }
-}
-
-void LCDconfig(){
-    LCD_cursor (1,3);
-    wsLCD ("S1");
-    LCD_cursor(2,1);
-    wsLCD ("0.00");
-    LCD_cursor(1,8);
-    wsLCD("S2");
-    LCD_cursor(2,7);
-    wsLCD ("0.00");
-    LCD_cursor(1,13);
-    wsLCD("S3");
-    LCD_cursor(2,13);
-    wsLCD ("0.00");
-    return;
-}
-
-void initCONFIG(){
-
-
-    OSCCONbits.IRCF2 = 1;
-    OSCCONbits.IRCF1 = 1;
-    OSCCONbits.IRCF0 = 0;
-    OSCCONbits.SCS = 1;
-
-
-
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE =1;
-    INTCONbits.T0IE = 1;
-    INTCONbits.T0IF =0;
-
-
-    PIE1bits.ADIE=1;
-    PIR1bits.ADIF=0;
-    ADC_START();
-    initLCD();
-    LCDconfig();
-
-
-    INTCONbits.RBIE = 1;
-    INTCONbits.RBIF = 0;
-    IOCB = 0b01100000;
-
-
-    TRISA = 0b00000011;
-    TRISB = 0b00000000;
-    TRISC = 0;
-    TRISD = 0;
-    TRISE = 0;
-
-    PORTA = 0;
-    PORTB = 0b00000000;
-    PORTC = 0;
-    PORTD = 0;
-    PORTE = 0;
-    ANSELH = 0;
-    ANSEL = 0b00000011;
-
-
-    OPTION_REGbits.nRBPU = 0;
-    WPUB = 0b00000000;
-    return;
+void LCDsetup(char x) {
+    PORTD = x;
 }

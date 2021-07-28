@@ -2641,17 +2641,20 @@ typedef uint16_t uintptr_t;
 # 5 "./adc.h" 2
 
 
-void ADC_START(uint8_t ch);
+void ADC_START(void);
 # 11 "adc.c" 2
 
 
 
 
-void ADC_START(uint8_t ch) {
-    if (ADCON0bits.GO == 0){
-        ADCON0bits.CHS = ch;
-        _delay((unsigned long)((200)*(4000000/4000000.0)));
+void ADC_START() {
+        ADCON1bits.ADFM = 0;
+        ADCON1bits.VCFG0 = 0;
+        ADCON1bits.VCFG1 = 0;
+        ADCON0bits.ADCS = 0b10;
+        ADCON0bits.CHS = 0;
+        ADCON0bits.ADON = 1;
+        _delay((unsigned long)((50)*(4000000/4000000.0)));
         ADCON0bits.GO = 1;
-    }
     return;
 }

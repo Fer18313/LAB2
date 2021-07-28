@@ -27,6 +27,7 @@
 #include <stdint.h>
 #include "adc.h"
 #include <pic16f887.h>
+#include "8bit_LCD.h"
 
 // VAR
 uint8_t ADC_read0 = 0;
@@ -45,9 +46,11 @@ uint8_t temp1 = 0;
 uint8_t dozen = 0;
 uint8_t unity = 0;
 uint8_t F = 0;
+uint8_t f = 0;
 
 // FUNCTION PROTOTYPES
 void initCONFIG(void);
+void LCDconfig(void);
 
 // MAIN PROGRAM
 void main(void) {
@@ -85,8 +88,27 @@ void main(void) {
         if (counter>5){
             unit0 =5;
         }
+        LCD_cursor(2,1);
+        wLCD(unit0 + 48);
+        LCD_cursor(2,3);
+        wLCD(dec0 + 48);
+        LCD_cursor(2,4);
+        wLCD(dec1 +48);
+        
+        LCD_cursor (2,7);
+        wLCD(unit1 +48);
+        LCD_cursor (2,9);
+        wLCD(k0+48);
+        LCD_cursor(2,10);
+        wLCD(k1+48);
+        
+        LCD_cursor(2,13);
+        wLCD(cents +48);
+        LCD_cursor(2,14);
+        wLCD(dozen +48);
+        LCD_cursor(2,15);
+        wLCD(unity +48);
     }
-    return;
 }
 void __interrupt() ISR(void){
         if(PIR1bits.ADIF){
@@ -125,9 +147,55 @@ void __interrupt() ISR(void){
              temp = RCREG;
          }
 }
-
+        if (TXIF ==1){
+            if(f == 0){
+                TXREG = unit0 +48;
+                f = 1;
+            }else if (f ==1){
+                TXREG = 0x2E;
+                f = 2;
+            } else if (f ==2){
+                TXREG = dec0 +48;
+                f = 3;
+            } else if (f == 3){
+                TXREG = dec1 +48;
+                f = 4;
+            } else if (f==4){
+                TXREG = 0x2D;
+                f = 5;
+            } else if(f ==5){
+                TXREG = unit1 +48;
+                f = 6;
+            } else if(f==6){
+                TXREG = 0x2E ;
+                f = 7;
+            } else if (f==7){
+                TXREG = k0+48;
+                f = 8;
+            } else if (f==8){
+                TXREG = k1 +48;
+                f = 9;
+            } else if (f==9){
+                TXREG = 0x0D;
+                f = 0;
+            }
+            TXIF =0;
+        }
 }
-void initLCD(){
+
+void LCDconfig(){
+    LCD_cursor (1,3);
+    wsLCD ("S1");
+    LCD_cursor(2,1);
+    wsLCD ("0.00");
+    LCD_cursor(1,8);
+    wsLCD("S2");
+    LCD_cursor(2,7);
+    wsLCD ("0.00");
+    LCD_cursor(1,13);
+    wsLCD("S3");
+    LCD_cursor(2,13);
+    wsLCD ("0.00");
     return;
 }
 
@@ -139,19 +207,6 @@ void initCONFIG(){
     OSCCONbits.IRCF0 = 0;
     OSCCONbits.SCS = 1;
     // CONFIG ADC
-    ADCON1bits.ADFM=0;
-    ADCON1bits.VCFG0=0;
-    ADCON1bits.VCFG1=0;
-    ADCON0bits.ADCS= 0b010;
-    ADCON0bits.CHS = 0; // CHANNEL 0
-    __delay_us(50); // ESPERAMOS UN TIEMPO PARA EL CAPACITOR
-    ADCON0bits.ADON = 1;
-    ADCON1bits.ADFM=0;
-    ADCON1bits.VCFG0=0;
-    ADCON1bits.VCFG1=0;
-    ADCON0bits.CHS = 1; // CHANNEL 1
-    __delay_us(50); // ESPERAMOS UN TIEMPO PARA EL CAPACITOR
-    ADCON0bits.ADON = 1;
     
     // MAIN INTERRUPTIONS
     INTCONbits.GIE = 1;
@@ -162,6 +217,9 @@ void initCONFIG(){
     // ADC INTERRUPT 
     PIE1bits.ADIE=1;
     PIR1bits.ADIF=0;
+    ADC_START();
+    initLCD();
+    LCDconfig();
     
     // PORT B INTERRUPT
     INTCONbits.RBIE = 1;
@@ -169,7 +227,7 @@ void initCONFIG(){
     IOCB = 0b01100000;
     
     // PORT CONFIGURATIONS
-    TRISA = 0b00000000; // READING: ADC // PORT: AN0/RA0
+    TRISA = 0b00000011; // READING: ADC // PORT: AN0/RA0
     TRISB = 0b00000000; // INPUT PUSHBUTTON: RB5> UP , RB6> DOWN
     TRISC = 0;          // LED OUTPUT 
     TRISD = 0;          // 7 SEGMENT OUTPUT
