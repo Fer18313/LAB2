@@ -4,13 +4,13 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 #define _XTAL_FREQ 4000000
-#define RS RB6
-#define EN RB7
+#define RS RE0
+#define EN RE1
 
-void();
-void();
-void();
-void();
-void();
-void LCD(void);
+void initLCD(void);
+void wsLCD(char *x);
+void wLCD(char x);
+void LCD_set(char x);
+void LCD_cursor(char x, char y);
+void LCDsetup(char x);
 #endif	/* XC_HEADER_TEMPLATE_H */

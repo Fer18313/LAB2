@@ -16,7 +16,7 @@
                    projectFiles="true">
       <itemPath>newmain.c</itemPath>
       <itemPath>adc.c</itemPath>
-      <itemPath>LCD.c</itemPath>
+      <itemPath>8bit_LCD.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
