@@ -52,7 +52,7 @@
 //FUNCTION PROTOTYPES
 void initCONFIG(void);  //Configuración
 void configTMR0(void);
-void LCD_display(void); //Subrutina para la LCD
+void configLCD(void); //Subrutina para la LCD
 
 // MAIN VOID
 void main(void) {
@@ -217,7 +217,7 @@ void __interrupt() isr(void){
 
 // CONFIGURATIONS VOID
 
-void LCD_display(){
+void configLCD(){
     cursorLCD(1,3);
     wsLCD("S1");
     cursorLCD(2,1);
