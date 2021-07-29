@@ -1,3 +1,3 @@
-build/default/production/adc.p1:  \
-adc.c  \
-adc.h 
+build/default/production/ADC.p1:  \
+ADC.c  \
+ADC.h 

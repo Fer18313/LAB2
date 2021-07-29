@@ -1,4 +1,4 @@
-# 1 "ADC.c"
+# 1 "LCD8bits.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "ADC.c" 2
+# 1 "LCD8bits.c" 2
 
 
 
@@ -2495,166 +2495,66 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 9 "ADC.c" 2
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
-# 13 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int8_t;
-
-
-
-
-
-
-typedef signed int int16_t;
-
-
-
-
-
-
-
-typedef __int24 int24_t;
-
-
-
-
-
-
-
-typedef signed long int int32_t;
-# 52 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint8_t;
-
-
-
-
-
-typedef unsigned int uint16_t;
-
-
-
-
-
-
-typedef __uint24 uint24_t;
-
-
-
-
-
-
-typedef unsigned long int uint32_t;
-# 88 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int_least8_t;
-
-
-
-
-
-
-
-typedef signed int int_least16_t;
-# 109 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef __int24 int_least24_t;
-# 118 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef signed long int int_least32_t;
-# 136 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint_least8_t;
-
-
-
-
-
-
-typedef unsigned int uint_least16_t;
-# 154 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef __uint24 uint_least24_t;
-
-
-
-
-
-
-
-typedef unsigned long int uint_least32_t;
-# 181 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef signed char int_fast8_t;
-
-
-
-
-
-
-typedef signed int int_fast16_t;
-# 200 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef __int24 int_fast24_t;
-
-
-
-
-
-
-
-typedef signed long int int_fast32_t;
-# 224 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef unsigned char uint_fast8_t;
-
-
-
-
-
-typedef unsigned int uint_fast16_t;
-# 240 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef __uint24 uint_fast24_t;
-
-
-
-
-
-
-typedef unsigned long int uint_fast32_t;
-# 268 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef int32_t intmax_t;
-# 282 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
-typedef uint32_t uintmax_t;
-
-
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-# 10 "ADC.c" 2
-
-# 1 "./ADC.h" 1
-
-
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
-# 5 "./ADC.h" 2
-
-
-void setupADC(void);
-# 11 "ADC.c" 2
-
-
-
-
-void setupADC(void) {
-    ADCON1bits.ADFM = 0;
-    ADCON1bits.VCFG0 = 0;
-    ADCON1bits.VCFG1 = 0;
-    ADCON0bits.ADCS = 0b10;
-    ADCON0bits.CHS = 0;
-    ADCON0bits.ADON = 1;
+# 9 "LCD8bits.c" 2
+
+# 1 "./LCD8bits.h" 1
+# 16 "./LCD8bits.h"
+void initLCD(void);
+void enableLCD(char x);
+void LCDsetup(char x);
+void wLCD (char x);
+void cursorLCD (char x, char y);
+void wsLCD (char *x);
+# 10 "LCD8bits.c" 2
+
+
+
+
+void initLCD(){
+   _delay((unsigned long)((80)*(4000000/4000.0)));
+   LCDsetup(0b0);
+   _delay((unsigned long)((110)*(4000000/4000.0)));
+   enableLCD(0b110000);
+   _delay((unsigned long)((40)*(4000000/4000.0)));
+   enableLCD(0b110000);
+   _delay((unsigned long)((390)*(4000000/4000.0)));
+   enableLCD(0b110000);
+   enableLCD(0b111000);
+   enableLCD(0b10000);
+   enableLCD(0b1);
+   enableLCD(0b110);
+   enableLCD(0b1100);
+}
+void enableLCD (char x){
+    RE0 = 0;
+    LCDsetup(x);
+    RE1 = 1;
+    _delay((unsigned long)((10)*(4000000/4000.0)));
+    RE1 = 0;
+}
+void LCDsetup(char x) {
+    PORTD = x;
+}
+void wLCD(char x){
+    RE0 = 1;
+    LCDsetup(x);
+    RE1 = 1;
     _delay((unsigned long)((100)*(4000000/4000000.0)));
-    ADCON0bits.GO = 1;
-    return;
+    RE1 = 0;
+}
+void cursorLCD(char x, char y){
+    char t, u, v;
+    if (x == 1){
+        t = 0x80 + y - 1;
+        enableLCD(t);
+    }
+    else if (x == 2){
+        t = 0xC0 + y - 1;
+        enableLCD(t);
+    }
+}
+void wsLCD(char *x){
+    int i;
+    for(i=0;x[i]!='\0';i++)
+        wLCD(x[i]);
 }

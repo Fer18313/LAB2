@@ -1,4 +1,4 @@
-# 1 "ADC.c"
+# 1 "main.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,11 +6,22 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "ADC.c" 2
+# 1 "main.c" 2
+# 10 "main.c"
+#pragma config FOSC = INTRC_NOCLKOUT
+#pragma config WDTE = OFF
+#pragma config PWRTE = OFF
+#pragma config MCLRE = OFF
+#pragma config CP = OFF
+#pragma config CPD = OFF
+#pragma config BOREN = OFF
+#pragma config IESO = OFF
+#pragma config FCMEN = OFF
+#pragma config LVP = OFF
 
 
-
-
+#pragma config BOR4V = BOR40V
+#pragma config WRT = OFF
 
 
 
@@ -2495,7 +2506,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 9 "ADC.c" 2
+# 27 "main.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
@@ -2630,7 +2641,7 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 10 "ADC.c" 2
+# 28 "main.c" 2
 
 # 1 "./ADC.h" 1
 
@@ -2642,19 +2653,265 @@ typedef uint16_t uintptr_t;
 
 
 void setupADC(void);
-# 11 "ADC.c" 2
+# 29 "main.c" 2
+
+# 1 "./UART.h" 1
 
 
 
 
-void setupADC(void) {
-    ADCON1bits.ADFM = 0;
-    ADCON1bits.VCFG0 = 0;
-    ADCON1bits.VCFG1 = 0;
-    ADCON0bits.ADCS = 0b10;
-    ADCON0bits.CHS = 0;
-    ADCON0bits.ADON = 1;
-    _delay((unsigned long)((100)*(4000000/4000000.0)));
-    ADCON0bits.GO = 1;
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
+# 6 "./UART.h" 2
+
+void UARTs(void);
+# 30 "main.c" 2
+
+# 1 "./LCD8bits.h" 1
+# 16 "./LCD8bits.h"
+void initLCD(void);
+void enableLCD(char x);
+void LCDsetup(char x);
+void wLCD (char x);
+void cursorLCD (char x, char y);
+void wsLCD (char *x);
+# 31 "main.c" 2
+
+
+
+  uint8_t temp_read;
+  uint8_t counter = 0;
+  uint8_t c;
+  uint8_t var0;
+  uint8_t var1;
+  uint8_t k1;
+  uint8_t k0;
+  uint8_t hundreds;
+  uint8_t unit;
+  uint8_t decimal;
+  uint8_t decimal0;
+  uint8_t unit_1;
+  uint8_t t;
+  uint8_t dozens;
+  uint8_t unity;
+  uint8_t F1;
+  uint8_t F0;
+
+
+void initCONFIG(void);
+void configTMR0(void);
+void LCD_display(void);
+
+
+void main(void) {
+    initCONFIG();
+    configTMR0();
+    while(1){
+    unit = var0 / 51;
+    decimal = ((var0 * 100 / 51) - (unit*100))/10;
+    decimal0 = ((var0 * 100 / 51) - (unit*100) - (decimal*10));
+
+    unit_1 = var1 / 51;
+    k1 = (((var1 * 100) / 51) - (unit_1*100))/10;
+    k0 = (((var1 * 100) / 51) - (unit_1*100) - (k1*10));
+    hundreds = counter/100;
+    t = counter%100;
+    dozens = t/10;
+    unity = counter%10;
+
+    if (decimal > 9){
+        decimal = 9;
+    }
+    if (decimal0 > 9){
+        decimal0 = 9;
+    }
+    if (k1 > 9){
+        k1 = 9;
+    }
+    if (k0 > 9){
+        k0 = 9;
+    }
+
+    if (unit > 5){
+        unit = 5;
+    }
+    if (unit_1 > 5){
+        unit = 5;
+    }
+    if (counter > 5){
+        unit = 5;
+    }
+
+    cursorLCD(2,1);
+    wLCD(unit +48);
+    cursorLCD(2,3);
+    wLCD(decimal + 48);
+    cursorLCD(2,4);
+    wLCD(decimal0 + 48);
+
+    cursorLCD(2,7);
+    wLCD(unit_1 +48);
+    cursorLCD(2,9);
+    wLCD(k1 + 48);
+    cursorLCD(2,10);
+    wLCD(k0 + 48);
+
+    cursorLCD(2,13);
+    wLCD(hundreds +48);
+    cursorLCD(2,14);
+    wLCD(dozens + 48);
+    cursorLCD(2,15);
+    wLCD(unity + 48);
+    if(c > 20){
+        c = 0;
+        TXIE = 1;
+    }
+   }
+}
+
+
+
+void __attribute__((picinterrupt(("")))) isr(void){
+    if (INTCONbits.T0IF){
+        c++;
+        INTCONbits.T0IF = 0;
+    }
+    if(ADIF == 1){
+        switch (F0){
+            case 1:
+                var0 = ADRESH;
+                ADCON0bits.CHS0 = 1;
+                F0 = 0;
+                break;
+            case 0:
+                var1 = ADRESH;
+                ADCON0bits.CHS0 = 0;
+                F0 = 1;
+                break;
+        }
+                ADIF = 0;
+                _delay((unsigned long)((120)*(4000000/4000000.0)));
+                ADCON0bits.GO = 1;
+    }
+    if(PIR1bits.RCIF == 1){
+        RB5 = 1;
+        if (RCREG == 0b1101){
+        RB5 = 0;
+            if (temp_read == 0b101110){
+                counter++;
+                if (counter > 255){
+                    counter = 0;
+                }
+            }
+
+            else if (temp_read == 0b101101){
+                counter--;
+                if (counter > 255){
+                    counter = 0;
+                }
+            }
+        }
+        else {
+        temp_read = RCREG;
+        }
+    }
+    if (TXIF == 1){
+        switch(F1){
+            case 0:
+                TXREG = unit + 48;
+                F1 = 1;
+                break;
+            case 1:
+                TXREG = 0b101110;
+                F1 = 2;
+                break;
+            case 2:
+                TXREG = decimal + 48;
+                F1 = 3;
+                break;
+            case 3:
+                TXREG = decimal0 + 48;
+                F1 = 4;
+                break;
+            case 4:
+                TXREG = 0b101101;
+                F1 = 5;
+                break;
+            case 5:
+                TXREG = unit_1 + 48;
+                F1 = 6;
+                break;
+            case 6:
+                TXREG = 0b101110;
+                F1 = 7;
+                break;
+            case 7:
+                TXREG = k1 + 48;
+                F1 = 8;
+                break;
+            case 8:
+                TXREG = k0 + 48;
+                F1 = 9;
+                break;
+            case 9:
+                TXREG = 0b1101;
+                F1 = 0;
+                break;
+        }
+        TXIF = 0;
+    }
+}
+
+
+
+void LCD_display(){
+    cursorLCD(1,3);
+    wsLCD("S1");
+    cursorLCD(2,1);
+    wsLCD("0.00");
+    cursorLCD(1,8);
+    wsLCD("S2");
+    cursorLCD(2,7);
+    wsLCD("0.00");
+    cursorLCD(1,13);
+    wsLCD("S3");
+    cursorLCD(2,13);
+    wsLCD("00");
     return;
+}
+
+void initCONFIG(void){
+    ANSELH = 0;
+    ANSEL = 0b00000011;
+    TRISA = 0b00000011;
+    TRISC = 0b11000000;
+    TRISD = 0;
+    TRISE = 0;
+    PORTA = 0;
+    PORTC = 0;
+    PORTD = 0;
+    PORTE = 0;
+    OSCCONbits.IRCF2 = 1;
+    OSCCONbits.IRCF1 = 1;
+    OSCCONbits.IRCF0 = 1;
+    OSCCONbits.SCS = 1;
+    setupADC();
+    INTCONbits.GIE = 1;
+    INTCONbits.T0IE = 1;
+    INTCONbits.T0IF = 0;
+    INTCONbits.PEIE = 1;
+    PIE1bits.ADIE = 1;
+    PIR1bits.ADIF = 0;
+    initLCD();
+    UARTs();
+    LCD_display();
+}
+
+void configTMR0(){
+    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PSA = 0;
+    OPTION_REGbits.PS2 = 1;
+    OPTION_REGbits.PS1 = 1;
+    OPTION_REGbits.PS0 = 1;
+    TMR0 = 217;
 }

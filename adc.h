@@ -1,9 +1,8 @@
-#ifndef __adc_h_
-#define	__adc_h_
+#ifndef __ADC_H_
+#define __ADC_H_
 
-#include <xc.h> // include processor files - each processor file is guarded.  
+#include <xc.h>
 #include <stdint.h>
 
-void ADC_START(void);
-
-#endif	/* XC_HEADER_TEMPLATE_H */
+void setupADC(void);
+#endif

@@ -1,4 +1,4 @@
-# 1 "ADC.c"
+# 1 "UART.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,9 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "ADC.c" 2
-
-
+# 1 "UART.c" 2
 
 
 
@@ -2495,7 +2493,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 9 "ADC.c" 2
+# 7 "UART.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 3
@@ -2630,31 +2628,30 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 10 "ADC.c" 2
+# 8 "UART.c" 2
 
-# 1 "./ADC.h" 1
+# 1 "./UART.h" 1
+
 
 
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c90\\stdint.h" 1 3
-# 5 "./ADC.h" 2
+# 6 "./UART.h" 2
+
+void UARTs(void);
+# 9 "UART.c" 2
 
 
-void setupADC(void);
-# 11 "ADC.c" 2
-
-
-
-
-void setupADC(void) {
-    ADCON1bits.ADFM = 0;
-    ADCON1bits.VCFG0 = 0;
-    ADCON1bits.VCFG1 = 0;
-    ADCON0bits.ADCS = 0b10;
-    ADCON0bits.CHS = 0;
-    ADCON0bits.ADON = 1;
-    _delay((unsigned long)((100)*(4000000/4000000.0)));
-    ADCON0bits.GO = 1;
+void UARTs() {
+    TXSTAbits.SYNC = 0;
+    TXSTAbits.BRGH = 1;
+    BAUDCTLbits.BRG16 = 1;
+    SPBRG = 207;
+    SPBRGH = 0;
+    RCSTAbits.SPEN = 1;
+    RCSTAbits.RX9 = 0;
+    RCSTAbits.CREN = 1;
+    TXSTAbits.TXEN = 1;
     return;
 }
